@@ -4,6 +4,7 @@ var path     = require('path')
   , API      = require('json-api')
   , APIError = API.types.Error
   , mongoose = require('mongoose')
+  , MongooseAdapter = require('@json-api/mongoose-adapter').default
   , virtualQueryFactory = require('./virtual-query-factory');
 
 // Start by loading up all our mongoose models and connecting.
@@ -22,7 +23,7 @@ var models = {
 // Below, we load up every resource type and give each the same adapter; in
 // theory, though, different types could be powered by different dbs/adapters.
 // Check /resource-desciptions/school.js to see some of the advanced features.
-var adapter = new API.dbAdapters.Mongoose(models);
+var adapter = new MongooseAdapter(models);
 var registry = new API.ResourceTypeRegistry({
   people: require('./resource-descriptions/people'),
   organizations: require('./resource-descriptions/organizations'),
